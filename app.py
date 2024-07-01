@@ -5,19 +5,21 @@ app = Flask(__name__)
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
-
     return render_template("index.html")
 
 
 
 @app.route('/api/hello', methods=['GET', 'POST'])
 def hello():
-    name = request.args.get('visitor_name')
-    ip = requests.get('https://api.ipify.org?format=json')
-    data = ip.json()
-    client_ip = data['ip']
 
+    name = request.args.get('visitor_name')
+    
     if request.method == "GET":
+
+
+        ip_url_Api = requests.get('https://ipinfo.io/json')
+        data = ip_url_Api.json()
+        client_ip =  data['ip']
         
         location_url = 'http://ipinfo.io/' + client_ip + '/json'
         search_location_url = requests.get(location_url)
@@ -38,9 +40,10 @@ def hello():
         response = {
         'client_ip': client_ip,
 
-        'location': location,
+        'greeting': f"Hello, {name}! The temperature is {temperature} degree celcius in {location}",
 
-        'greeting': f"Hello, {name.title()}! The temperature is {temperature} degree celcius in {location.title()}"
+        'location': location
+        
         }
 
         return jsonify(response)
@@ -50,4 +53,4 @@ def hello():
 
 
 if __name__ == "__main__":
-     app.run(debug=True)
+     app.run()
