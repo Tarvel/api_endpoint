@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello {{name|title}}</title>
+</head>
+<body>
+    <p>
+    {<br>
+        client_ip: {{ client_ip }}
+<br>
+        location: {{location}}
+<br>
+        greeting: "Hello, {{name|title}}!, the temperature is {{temperature}} in {{ city|title }}"
+        <br> }
+    </p>
+</body>
+</html>
+
+
