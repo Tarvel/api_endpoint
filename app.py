@@ -14,9 +14,10 @@ def hello():
         visitor_name = request.args.get('visitor_name')
         titled_name = visitor_name.title()
 
-        ip_url_Api = requests.get('https://ipinfo.io/json')
-        data = ip_url_Api.json()
-        client_ip =  data['ip']
+        if request.headers.getlist("X-Forwarded-For"):
+            client_ip = request.headers.getlist("X-Forwarded-For")[0]
+        else:
+            client_ip = request.remote_addr
         
         location_url = 'http://ipinfo.io/' + client_ip + '/json'
         search_location_url = requests.get(location_url)
