@@ -10,12 +10,9 @@ def index():
 
 
 @app.route('/api/hello', methods=['GET', 'POST'])
-def hello():
-
-    name = request.args.get('visitor_name')
-    
-    if request.method == "GET":
-
+def hello(): 
+        visitor_name = request.args.get('visitor_name')
+        titled_name = visitor_name.title()
 
         ip_url_Api = requests.get('https://ipinfo.io/json')
         data = ip_url_Api.json()
@@ -40,7 +37,7 @@ def hello():
         response = {
         'client_ip': client_ip,
 
-        'greeting': f"Hello, {name}! The temperature is {temperature} degree celcius in {location}",
+        'greeting': f"Hello, {titled_name}! The temperature is {temperature} degree celcius in {location}",
 
         'location': location
         
